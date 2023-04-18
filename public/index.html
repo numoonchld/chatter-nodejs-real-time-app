@@ -10,45 +10,28 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <style>
-      #messages {
-        list-style-type: none;
-      }
-
-      #messages > li {
-        padding: 5px 10px;
-      }
-
-      #messages > li:nth-child(odd) {
-        background-color: #eee;
-      }
-    </style>
   </head>
   <body>
     <div class="container w-100">
-      <div class="row">
-        <ul id="messages"></ul>
-      </div>
-      <form class="row">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="message..."
-            aria-label="message..."
-            aria-describedby="button-addon2"
-            id="message"
-            autocomplete="off"
-          />
-          <button
-            class="btn btn-outline-success"
-            type="submit"
-            id="button-addon2"
-          >
-            Send
-          </button>
+      <div class="jumbotron jumbotron-fluid bg-secondary text-light p-5 my-5">
+        <h1 class="display-3">Chatter</h1>
+        <hr />
+        <p class="lead">Select your channel!</p>
+        <div class="row">
+          <ul class="list-group col my-3">
+            <a
+              href="/javascript"
+              target="_blank"
+              class="list-group-item list-group-item-action"
+              >JavaScript</a
+            >
+            <a href="/swift" target="_blank" class="list-group-item">Swift</a>
+            <a href="/html-css" target="_blank" class="list-group-item"
+              >HTML/CSS</a
+            >
+          </ul>
         </div>
-      </form>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
@@ -66,22 +49,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io("/tech");
-      $("form").submit(() => {
-        socket.emit("messages", $("#message").val());
-        $("#message").val("");
-        return false;
-      });
-
-      socket.on("connect", () => {
-        // emitting to everybody
-        socket.emit("messages", "user connected");
-      });
-
-      socket.on("message", (message) => {
-        $("#messages").append($("<li>").text(message));
-      });
-    </script>
   </body>
 </html>
